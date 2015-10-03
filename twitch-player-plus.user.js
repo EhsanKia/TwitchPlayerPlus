@@ -1,16 +1,18 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    0.4
+// @version    0.5
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      http://www.twitch.tv/*
 // @match      http://player.twitch.tv/*
+// @grant      GM_addStyle
 // @copyright  2015+, Ehsan Kia
 // ==/UserScript==
 
+var html5Player;
 var qualityOptions;
 var waitForPlayerReadyTimer = setInterval(function() {
-    var html5Player = $('div.player');
+    html5Player = $('div.player');
     if (html5Player.length > 0) {
         setTimeout(applyFixes, 3000);
         clearInterval(waitForPlayerReadyTimer);
@@ -57,10 +59,10 @@ function applyFixes() {
     // Remove initially, otherwise there's an empty space for a bit
     checkForQualityOptions()
 
-    // Bind F key to fullscreen
-    // document.addEventListener("keypress", function(e){
-    //     if(e.which === 102) enterFS($('div.player')[0]);
-    // });
+    // Bind F key to toggle fullscreen
+    html5Player.keypress(function(e){
+        if(e.which === 102) $('.js-control-fullscreen').click();
+    });
 }
 
 function checkForQualityOptions() {
@@ -72,16 +74,4 @@ function checkForQualityOptions() {
   }
 }
 
-function enterFS(elem) {
-  if (elem.requestFullscreen) {
-      elem.requestFullscreen();
-  } else if (elem.msRequestFullscreen) {
-      elem.msRequestFullscreen();
-  } else if (elem.mozRequestFullScreen) {
-      elem.mozRequestFullScreen();
-  } else if (elem.webkitRequestFullscreen) {
-      elem.webkitRequestFullscreen();
-  }
-}
-
-GM_addStyle("select:-moz-focusring { outline: none; border: 0; }");
+GM_addStyle("select:-moz-focusring { outline: none; }");
