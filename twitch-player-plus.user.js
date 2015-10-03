@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    0.2
+// @version    0.3
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      http://www.twitch.tv/*
 // @match      http://player.twitch.tv/*
 // @copyright  2015+, Ehsan Kia
 // ==/UserScript==
- 
+
 var qualityOptions;
 var waitForPlayerReadyTimer = setInterval(function() {
     var html5Player = $('div.player');
@@ -21,16 +21,26 @@ function applyFixes() {
     // Sticky volume slider
     $('.js-volume-container').css('width', '13em');
 
-    // Move quality options to main bar if available
+    // Move quality options to main bar and style appropriately
     qualityOptions = $(".js-quality");
     qualityOptions.insertAfter($('.js-quality-display-contain'));
     qualityOptions.css({
       float: "left",
       margin: "5px",
       color: "white",
-      background: "rgba(20, 20, 20, 0.8)",
-      border: "1px solid grey",
+      background: "none",
+      border: "none",
       boxShadow: "0 0 black",
+      appearance: "none",
+      "-moz-appearance": "none",
+      "-webkit-appearance": "none",
+      cursor: "pointer",
+    });
+    qualityOptions.mouseover(function() {
+        $(this).css("color","#a991d4");
+        $(this).find("> option").css("color","white");
+    }).mouseout(function() {
+        $(this).css("color","white");
     });
 
     // Remove remaining label
@@ -38,6 +48,8 @@ function applyFixes() {
 
     // Hide options if there are no transcoders
     setInterval(checkForQualityOptions, 5000);
+    // Remove initially, otherwise there's an empty space for a bit
+    checkForQualityOptions()
 
     // Bind F key to fullscreen
     // document.addEventListener("keypress", function(e){
@@ -65,3 +77,4 @@ function enterFS(elem) {
       elem.webkitRequestFullscreen();
   }
 }
+
