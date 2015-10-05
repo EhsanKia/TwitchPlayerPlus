@@ -63,7 +63,7 @@ function applyFixes() {
     // Hide options if there are no transcoders
     setInterval(checkForQualityOptions, 5000);
     // Remove initially, otherwise there's an empty space for a bit
-    checkForQualityOptions()
+    checkForQualityOptions();
 
     // Bind F key to toggle fullscreen
     $('body').keypress(function(e) {
