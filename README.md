@@ -1,11 +1,11 @@
 # TwitchPlayerPlus
-A set of tweaks for the HTML5 Twitch Player coded by me, [EhsanKia](http://twitch.tv/EhsanKia), with contributions from [tduva](http://twitch.tv/tduva).
+A set of tweaks for the HTML5 Twitch Player coded by me, [EhsanKia](http://twitch.tv/EhsanKia), with contributions from [tduva](http://twitch.tv/tduva) and [iBanana32GB](https://www.reddit.com/user/iBanana32GB).
 
 Feel free to suggest new features and report bugs on GitHub issues page.
 
 ### How to install:
 
-1. Install a userscript extension in your browser, which will manage/update any userscripts you install:
+1. Install an extension in your browser to manage/update userscripts:
   * Firefox: [Greasemonkey](https://addons.mozilla.org/en-US/firefox/addon/greasemonkey/)
   * Google Chrome: [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
 2. Once the extension is installed and enabled, open [the userscript](https://raw.githubusercontent.com/EhsanKia/TwitchPlayerPlus/master/twitch-player-plus.user.js) to install it.
@@ -22,3 +22,4 @@ If something in the player appears broken, disable the script temporarily and re
 ### Upcoming:
 
 - Easier access to stream stats
+- Keep track of seek position in VODs
