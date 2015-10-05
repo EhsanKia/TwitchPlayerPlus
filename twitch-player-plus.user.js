@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    0.5
+// @version    0.6
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      http://www.twitch.tv/*
 // @match      http://player.twitch.tv/*
 // @grant      GM_addStyle
+// @require    http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
 // @copyright  2015+, Ehsan Kia
 // ==/UserScript==
 
@@ -28,7 +29,9 @@ function applyFixes() {
     qualityOptions.insertAfter($('.js-quality-display-contain'));
     qualityOptions.css({
       float: "left",
-      margin: "6px 4px",
+      height: "29px",
+      margin: "0 6px 0 4px",
+      padding: "0",
       color: "white",
       fontWeight: "bold",
       background: "none",
@@ -39,13 +42,16 @@ function applyFixes() {
       "-webkit-appearance": "none",
       cursor: "pointer",
     });
+    qualityOptions.find("> option").css({
+      background: "black",
+      padding: "0 5px",
+      marginRight: "-15px",
+      fontWeight: "normal",
+    });
     qualityOptions.mouseover(function() {
         $(this).css("color","#a991d4");
         $(this).find("> option").css({
-            color: "white",
-            background: "black",
-            padding: "0 5px",
-            marginRight: "-15px",
+          color: "white",
         });
     }).mouseout(function() {
         $(this).css("color","white");
@@ -75,3 +81,5 @@ function checkForQualityOptions() {
 }
 
 GM_addStyle("select:-moz-focusring { outline: none; }");
+GM_addStyle(".js-quality:focus { outline: none; }");
+
