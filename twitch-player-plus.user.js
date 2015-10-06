@@ -92,7 +92,7 @@ function applyFixes() {
 
     // Remove old stats button and add new one
     $('.player-menu__item--stats').css('display', 'none');
-    $('.js-control-fullscreen').before(" \
+    $('.js-menu-button').after(" \
       <button type='button' class='player-button js-custom-stats-toggle'> \
         <span class='player-tip' data-tip='Video Stats'></span> \
         <svg id='icon-stats' viewBox='0 0 1024 1024' style='width: 16px; fill: white; margin: 1px 6px;'> \
