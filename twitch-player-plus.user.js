@@ -63,11 +63,23 @@ function applyFixes() {
     // Hide options if there are no transcoders
     setInterval(checkForQualityOptions, 5000);
     // Remove initially, otherwise there's an empty space for a bit
-    checkForQualityOptions()
+    checkForQualityOptions();
 
     // Bind F key to toggle fullscreen
-    html5Player.keypress(function(e){
-        if(e.which === 102) $('.js-control-fullscreen').click();
+    $('body').keypress(function(e) {
+      if (e.which === 102) {
+        // fallback to event.target just in case
+        var el = document.activeElement || e.target;
+        var t  = (el && el.tagName.toLowerCase()) || '';
+
+        // pass through to elements that take keyboard input
+        if (/(input|textarea|select)/.test(t)) {
+            return true;
+        }
+
+        $('.js-control-fullscreen').click();
+        return false;
+      }
     });
 }
 
