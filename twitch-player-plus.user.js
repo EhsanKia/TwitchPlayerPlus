@@ -10,10 +10,8 @@
 // @copyright  2015+, Ehsan Kia
 // ==/UserScript==
 
-var html5Player;
-var qualityOptions;
 var waitForPlayerReadyTimer = setInterval(function() {
-    html5Player = $('div.player');
+    var html5Player = $('div.player');
     if (html5Player.length > 0) {
       if (html5Player.attr('data-loading') === "false") {
         setTimeout(applyFixes, 100);
@@ -27,35 +25,7 @@ function applyFixes() {
     $('.js-volume-container').css('width', '13em');
 
     // Move quality options to main bar and style appropriately
-    qualityOptions = $(".js-quality");
-    qualityOptions.insertAfter($('.js-quality-display-contain'));
-    qualityOptions.css({
-      float: "left",
-      height: "29px",
-      margin: "0 6px 0 4px",
-      padding: "0",
-      color: "white",
-      fontWeight: "bold",
-      background: "none",
-      border: "none",
-      boxShadow: "0 0 black",
-      appearance: "none",
-      "-moz-appearance": "none",
-      "-webkit-appearance": "none",
-      cursor: "pointer",
-    });
-    qualityOptions.find("> option").css({
-      background: "black",
-      padding: "0 5px",
-      marginRight: "-15px",
-      fontWeight: "normal",
-    });
-    qualityOptions.mouseover(function() {
-      $(this).css("color","#a991d4");
-      $(this).find("> option").css("color", "white");
-    }).mouseout(function() {
-      $(this).css("color","white");
-    });
+    $(".js-quality").insertAfter($('.js-quality-display-contain'));
 
     // Remove remaining label
     $("span:contains('Video Quality:')").remove();
@@ -85,7 +55,6 @@ function applyFixes() {
     // Add latency status under Live icon
     var liveIcon = $('.player-livestatus__online');
     liveIcon.append("<div class='lag-status'></div>");
-    $('.lag-status').css({width: "60px", marginLeft: "-20px", textAlign: "center"});
     $('a.js-stats-toggle')[0].click();
     $('.js-playback-stats').attr('data-state', 'off');
     setInterval(updateLatency, 1000);
@@ -99,11 +68,7 @@ function applyFixes() {
           <path d='M960 0h-896c-35.328 0-64 28.672-64 64v640c0 35.328 28.672 64 64 64h256l-128 256h32l230.4-256h115.2l230.4 256h32l-128-256h256c35.328 0 64-28.672 64-64v-640c0-35.328-28.672-64-64-64zM960 672c0 17.696-14.304 32-32 32h-832c-17.696 0-32-14.304-32-32v-576c0-17.696 14.304-32 32-32h832c17.696 0 32 14.304 32 32v576zM668.096 500.192l-144.672-372.128-158.016 297.28-88.192-90.72-149.216 92.992 42.112 24.256 95.616-59.584 115.36 118.784 133.6-251.296 147.712 380.128 125.984-265.216 51.328 109.248 56.288-9.44-107.328-228.224-120.576 253.92z'></path> \
         </svg> \
       </button>");
-    $('.js-custom-stats-toggle').mouseover(function() {
-      $(this).find('> svg').css("fill","#a991d4");
-    }).mouseout(function() {
-      $(this).find('> svg').css("fill","white");
-    }).click(function(){
+    $('.js-custom-stats-toggle').click(function(){
       var prev = $('.js-playback-stats').attr('data-state');
       var state = prev === 'off' ? 'on' : 'off';
       $('.js-playback-stats').attr('data-state', state);
@@ -114,9 +79,9 @@ function applyFixes() {
 function checkForQualityOptions() {
   var numQualityOptions = $(".js-quality > option").length;
   if (numQualityOptions > 1) {
-    qualityOptions.css('display', 'block');
+    $('.js-quality').css('display', 'block');
   } else {
-    qualityOptions.css('display', 'none');
+    $('.js-quality').css('display', 'none');
   }
 }
 
@@ -127,4 +92,36 @@ function updateLatency() {
     }
 }
 
-GM_addStyle(".js-quality:focus { outline: none; }");
+GM_addStyle(" \
+select.js-quality:hover { color: #a991d4 !important; } \
+select.js-quality, select.js-quality:focus { \
+  float: left; \
+  height: 29px; \
+  margin: 0 6px 0 4px; \
+  padding: 0; \
+  color: white; \
+  font-weight: bold; \
+  background: none; \
+  border: none; \
+  box-shadow: 0 0 black; \
+  appearance: none; \
+  -moz-appearance: none; \
+  -webkit-appearance: none; \
+  outline: none; \
+  cursor: pointer; \
+} \
+select.js-quality > option { \
+  color: white; \
+  background: black; \
+  padding: 0 5px; \
+  margin-right: -15px; \
+  font-weight: bold; \
+} \
+.lag-status { \
+  width: 60px; \
+  margin-left: -20px; \
+  text-align: center; \
+} \
+.js-custom-stats-toggle:hover > svg { \
+  fill: #a991d4 !important; \
+}");
