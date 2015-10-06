@@ -1,5 +1,5 @@
 # TwitchPlayerPlus
-A set of tweaks for the HTML5 Twitch Player coded by me, [EhsanKia](http://twitch.tv/EhsanKia), with contributions from [tduva](http://twitch.tv/tduva) and [iBanana32GB](https://www.reddit.com/user/iBanana32GB).
+A set of tweaks for the HTML5 Twitch Player coded by me, [EhsanKia](http://twitch.tv/EhsanKia), with contributions from [tduva](http://twitch.tv/tduva) and [Fabrice](https://github.com/fabd).
 
 Feel free to suggest new features and report bugs on GitHub issues page.
 
