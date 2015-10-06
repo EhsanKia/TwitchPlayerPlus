@@ -20,7 +20,7 @@ var waitForPlayerReadyTimer = setInterval(function() {
         clearInterval(waitForPlayerReadyTimer);
       }
     }
-}, 1000);
+}, 100);
 
 function applyFixes() {
     // Sticky volume slider
@@ -44,7 +44,6 @@ function applyFixes() {
       "-webkit-appearance": "none",
       cursor: "pointer",
     });
-    console.log(qualityOptions.find("> option"));
     qualityOptions.find("> option").css({
       background: "black",
       padding: "0 5px",
@@ -52,12 +51,10 @@ function applyFixes() {
       fontWeight: "normal",
     });
     qualityOptions.mouseover(function() {
-        $(this).css("color","#a991d4");
-        $(this).find("> option").css({
-          color: "white",
-        });
+      $(this).css("color","#a991d4");
+      $(this).find("> option").css("color", "white");
     }).mouseout(function() {
-        $(this).css("color","white");
+      $(this).css("color","white");
     });
 
     // Remove remaining label
@@ -77,7 +74,7 @@ function applyFixes() {
 
         // pass through to elements that take keyboard input
         if (/(input|textarea|select)/.test(t)) {
-            return true;
+          return true;
         }
 
         $('.js-control-fullscreen').click();
