@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    0.7
+// @version    0.8
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      http://www.twitch.tv/*
 // @match      http://player.twitch.tv/*
@@ -15,8 +15,10 @@ var qualityOptions;
 var waitForPlayerReadyTimer = setInterval(function() {
     html5Player = $('div.player');
     if (html5Player.length > 0) {
-        setTimeout(applyFixes, 3000);
+      if (html5Player.attr('data-loading') === "false") {
+        setTimeout(applyFixes, 100);
         clearInterval(waitForPlayerReadyTimer);
+      }
     }
 }, 1000);
 
@@ -42,6 +44,7 @@ function applyFixes() {
       "-webkit-appearance": "none",
       cursor: "pointer",
     });
+    console.log(qualityOptions.find("> option"));
     qualityOptions.find("> option").css({
       background: "black",
       padding: "0 5px",
@@ -93,4 +96,3 @@ function checkForQualityOptions() {
 }
 
 GM_addStyle(".js-quality:focus { outline: none; }");
-
