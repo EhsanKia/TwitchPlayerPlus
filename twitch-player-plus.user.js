@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    0.9
+// @version    0.10
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      http://www.twitch.tv/*
 // @match      http://player.twitch.tv/*
@@ -24,16 +24,15 @@ function applyFixes() {
     // Sticky volume slider
     $('.js-volume-container').css('width', '13em');
 
-    // Move quality options to main bar and style appropriately
+    // Move quality options to main bar
     $(".js-quality").insertAfter($('.js-quality-display-contain'));
 
     // Remove remaining label
     $("span:contains('Video Quality:')").remove();
 
     // Hide options if there are no transcoders
-    setInterval(checkForQualityOptions, 5000);
-    // Remove initially, otherwise there's an empty space for a bit
     checkForQualityOptions();
+    setInterval(checkForQualityOptions, 5000);
 
     // Bind F key to toggle fullscreen
     $('body').keypress(function(e) {
@@ -73,7 +72,6 @@ function applyFixes() {
       var state = prev === 'off' ? 'on' : 'off';
       $('.js-playback-stats').attr('data-state', state);
     });
-
 }
 
 function checkForQualityOptions() {
@@ -86,10 +84,10 @@ function checkForQualityOptions() {
 }
 
 function updateLatency() {
-    var lat = $('.js-stat-hls-latency-broadcaster').text();
-    if (lat.length !== 0) {
-      $('.lag-status').text(lat + ' sec.');
-    }
+  var lat = $('.js-stat-hls-latency-broadcaster').text();
+  if (lat.length !== 0) {
+    $('.lag-status').text(lat + ' sec.');
+  }
 }
 
 GM_addStyle(" \
