@@ -18,8 +18,8 @@ If something in the player appears broken, disable the script temporarily and re
 - Put quality options on main bar
 - Hide quality options if there are no transcoders
 - F hotkey to toggle fullscreen
-
-### Upcoming:
-
 - Easier access to stream stats
 - Keep track of seek position in VODs
+
+### Upcoming:
+(nothing to see here, feel free to send feature suggestions)
