@@ -1,11 +1,13 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    0.10
+// @version    0.11
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      http://www.twitch.tv/*
 // @match      http://player.twitch.tv/*
 // @grant      GM_addStyle
+// @grant      GM_getValue
+// @grant      GM_setValue
 // @require    http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js
 // @copyright  2015+, Ehsan Kia
 // ==/UserScript==
@@ -72,6 +74,16 @@ function applyFixes() {
       var state = prev === 'off' ? 'on' : 'off';
       $('.js-playback-stats').attr('data-state', state);
     });
+
+    // If it's a VOD, seek to previous position and keep track of the position
+    if (html5Player.attr('data-video') !== undefined) {
+      var vodID = html5Player.attr('data-video');
+      var oldTime = GM_getValue(vodID);
+      if (oldTime !== undefined) {
+        flashBackend.videoSeek(oldTime);
+      }
+      setInterval(trackSeekTime, 10000);
+    }
 }
 
 function checkForQualityOptions() {
@@ -90,6 +102,12 @@ function updateLatency() {
   } else {
     flashBackend.startPlaybackStatistics();
   }
+}
+
+function trackSeekTime() {
+  var vodID = html5Player.attr('data-video');
+  var seekTime = flashBackend.getVideoTime();
+  GM_setValue(vodID, seekTime);
 }
 
 GM_addStyle(" \
