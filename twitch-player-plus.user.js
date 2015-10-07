@@ -10,12 +10,14 @@
 // @copyright  2015+, Ehsan Kia
 // ==/UserScript==
 
+var html5Player, flashBackend;
 var waitForPlayerReadyTimer = setInterval(function() {
-    var html5Player = $('div.player');
+    html5Player = $('div.player');
     if (html5Player.length > 0) {
       if (html5Player.attr('data-loading') === "false") {
-        setTimeout(applyFixes, 100);
         clearInterval(waitForPlayerReadyTimer);
+        flashBackend = $('div#player object')[0];
+        setTimeout(applyFixes, 100);
       }
     }
 }, 100);
@@ -54,7 +56,7 @@ function applyFixes() {
     // Add latency status under Live icon
     var liveIcon = $('.player-livestatus__online');
     liveIcon.append("<div class='lag-status'></div>");
-    $('a.js-stats-toggle')[0].click();
+    flashBackend.startPlaybackStatistics();
     $('.js-playback-stats').attr('data-state', 'off');
     setInterval(updateLatency, 1000);
 
@@ -87,6 +89,8 @@ function updateLatency() {
   var lat = $('.js-stat-hls-latency-broadcaster').text();
   if (lat.length !== 0) {
     $('.lag-status').text(lat + ' sec.');
+  } else {
+    flashBackend.startPlaybackStatistics();
   }
 }
 
