@@ -23,8 +23,6 @@ var waitForPlayerReadyTimer = setInterval(function() {
 }, 100);
 
 function applyFixes() {
-    // Sticky volume slider
-    $('.js-volume-container').css('width', '13em');
 
     // Move quality options to main bar
     $(".js-quality").insertAfter($('.js-quality-display-contain'));
@@ -95,6 +93,7 @@ function updateLatency() {
 }
 
 GM_addStyle(" \
+.js-volume-container { width: 13em; } \
 select.js-quality:hover { color: #a991d4 !important; } \
 select.js-quality, select.js-quality:focus { \
   float: left; \
