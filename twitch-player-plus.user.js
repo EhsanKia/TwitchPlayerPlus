@@ -75,9 +75,11 @@ function applyFixes() {
       $('.js-playback-stats').attr('data-state', state);
     });
 
-    // If it's a VOD, seek to previous position and keep track of the position
-    if (html5Player.attr('data-video') !== undefined) {
-      var vodID = html5Player.attr('data-video');
+    // Check if it's a VOD and there isn't a seek argument in the url
+    var vodID = html5Player.attr('data-video');
+    var hasSeekParam = document.location.search.search("t=") >= 0;
+    if (vodID !== undefined && !hasSeekParam) {
+      //seek to previous position and keep track of the position
       var oldTime = GM_getValue(vodID);
       if (oldTime !== undefined) {
         flashBackend.videoSeek(oldTime);
