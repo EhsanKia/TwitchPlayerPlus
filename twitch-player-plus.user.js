@@ -80,11 +80,13 @@ function applyFixes() {
     var hasSeekParam = document.location.search.search("t=") >= 0;
     if (vodID !== undefined && !hasSeekParam) {
       //seek to previous position and keep track of the position
-      var oldTime = GM_getValue(vodID);
+      var oldTime = GM_getValue("seek_" + vodID);
       if (oldTime !== undefined) {
         flashBackend.videoSeek(oldTime);
       }
-      setInterval(trackSeekTime, 10000);
+      setTimeout(function() {
+        setInterval(trackSeekTime, 15000);
+      }, 5 * 60 * 1000);
     }
 }
 
@@ -109,7 +111,8 @@ function updateLatency() {
 function trackSeekTime() {
   var vodID = html5Player.attr('data-video');
   var seekTime = flashBackend.getVideoTime();
-  GM_setValue(vodID, seekTime);
+  if (seekTime < 5 * 60) return;
+  GM_setValue("seek_" + vodID, seekTime);
 }
 
 GM_addStyle(" \
