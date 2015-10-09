@@ -56,8 +56,6 @@ function applyFixes() {
     // Add latency status under Live icon
     var liveIcon = $('.player-livestatus__online');
     liveIcon.append("<div class='lag-status'></div>");
-    flashBackend.startPlaybackStatistics();
-    $('.js-playback-stats').attr('data-state', 'off');
     setInterval(updateLatency, 1000);
 
     // Remove old stats button and add new one
