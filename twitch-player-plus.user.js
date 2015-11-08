@@ -12,13 +12,13 @@
 // @copyright  2015+, Ehsan Kia
 // ==/UserScript==
 
-var html5Player, flashBackend;
+var html5Player;
 var waitForPlayerReadyTimer = setInterval(function() {
     html5Player = $('div.player');
     if (html5Player.length > 0) {
       if (html5Player.attr('data-loading') === "false") {
         clearInterval(waitForPlayerReadyTimer);
-        flashBackend = $('div#player object')[0];
+        window.eval("var flashBackend = $('div#player object')[0];");
         setTimeout(applyFixes, 100);
       }
     }
@@ -56,7 +56,8 @@ function applyFixes() {
     // Add latency status under Live icon
     var liveIcon = $('.player-livestatus__online');
     liveIcon.append("<div class='lag-status'></div>");
-    setInterval(updateLatency, 1000);
+    window.eval('flashBackend.startPlaybackStatistics();');
+    setTimeout(updateLatency, 5000);
 
     // Remove old stats button and add new one
     $('.player-menu__item--stats').css('display', 'none');
@@ -80,7 +81,8 @@ function applyFixes() {
       //seek to previous position and keep track of the position
       var oldTime = GM_getValue("seek_" + vodID);
       if (oldTime !== undefined) {
-        flashBackend.videoSeek(oldTime);
+        oldTime = parseFloat(oldtime);
+        window.eval('flashBackend.videoSeek(' + oldTime + ');');
       }
       setTimeout(function() {
         setInterval(trackSeekTime, 15000);
@@ -99,16 +101,19 @@ function checkForQualityOptions() {
 
 function updateLatency() {
   var lat = $('.js-stat-hls-latency-broadcaster').text();
-  if (lat.length !== 0) {
-    $('.lag-status').text(lat + ' sec.');
+  if (lat === "" || lat === "NaN") {
+    window.eval('flashBackend.stopPlaybackStatistics();');
+    window.eval('flashBackend.startPlaybackStatistics();');
+    setTimeout(updateLatency, 5000);
   } else {
-    flashBackend.startPlaybackStatistics();
+    $('.lag-status').text(lat + ' sec.');
+    setTimeout(updateLatency, 1000);
   }
 }
 
 function trackSeekTime() {
   var vodID = html5Player.attr('data-video');
-  var seekTime = flashBackend.getVideoTime();
+  var seekTime = window.eval('flashBackend.getVideoTime();');
   if (seekTime < 5 * 60) return;
   GM_setValue("seek_" + vodID, seekTime);
 }
