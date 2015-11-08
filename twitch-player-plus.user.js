@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    0.11
+// @version    1.0
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      http://www.twitch.tv/*
 // @match      http://player.twitch.tv/*
@@ -70,7 +70,7 @@ function applyFixes() {
       </button>");
     $('.js-custom-stats-toggle').click(function(){
       var prev = $('.js-playback-stats').attr('data-state');
-      var state = prev === 'off' ? 'on' : 'off';
+      var state = prev === 'on' ? 'off' : 'on';
       $('.js-playback-stats').attr('data-state', state);
     });
 
