@@ -81,7 +81,7 @@ function applyFixes() {
       //seek to previous position and keep track of the position
       var oldTime = GM_getValue("seek_" + vodID);
       if (oldTime !== undefined) {
-        oldTime = parseFloat(oldtime);
+        oldTime = parseFloat(oldTime);
         window.eval('flashBackend.videoSeek(' + oldTime + ');');
       }
       setTimeout(function() {
