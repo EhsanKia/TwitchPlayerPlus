@@ -18,7 +18,7 @@ var waitForPlayerReadyTimer = setInterval(function() {
     if (html5Player.length > 0) {
       if (html5Player.attr('data-loading') === "false") {
         clearInterval(waitForPlayerReadyTimer);
-        window.eval("var flashBackend = $('div#player object')[0];");
+        window.eval("var flashBackend = $('div.player-video object')[0];");
         setTimeout(applyFixes, 100);
       }
     }
