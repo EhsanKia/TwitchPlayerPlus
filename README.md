@@ -20,6 +20,9 @@ If something in the player appears broken, disable the script temporarily and re
 - F hotkey to toggle fullscreen
 - Easier access to stream stats
 - Keep track of seek position in VODs
+ 
+### Screenshot:
+![](http://i.imgur.com/RB1d2mE.png)
 
 ### Upcoming:
 (nothing to see here, feel free to send feature suggestions)
