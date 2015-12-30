@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    1.0
+// @version    1.1
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      http://www.twitch.tv/*
 // @match      http://player.twitch.tv/*
@@ -16,10 +16,12 @@ var html5Player;
 var waitForPlayerReadyTimer = setInterval(function() {
     html5Player = $('div.player');
     if (html5Player.length > 0) {
-      if (html5Player.attr('data-loading') === "false") {
+      if (html5Player.attr('data-loading') === 'false') {
+        html5Player.attr('data-tpp', 'true');
         clearInterval(waitForPlayerReadyTimer);
         window.eval("var flashBackend = $('div.player-video object')[0];");
         setTimeout(applyFixes, 100);
+        hostPlayerCheck();
       }
     }
 }, 100);
@@ -88,6 +90,9 @@ function applyFixes() {
         setInterval(trackSeekTime, 15000);
       }, 5 * 60 * 1000);
     }
+
+    // Mark that we've fixed the player
+    html5Player.attr('data-tpp', 'true');
 }
 
 function checkForQualityOptions() {
@@ -116,6 +121,26 @@ function trackSeekTime() {
   var seekTime = window.eval('flashBackend.getVideoTime();');
   if (seekTime < 5 * 60) return;
   GM_setValue("seek_" + vodID, seekTime);
+}
+
+function hostPlayerCheck() {
+  setInterval(function() {
+      $('div.player').each(function(ind, el){
+        var player = $(el);
+        if (player.attr('data-tpp') === 'true') return;
+        if (player.attr('data-loading') !== 'false') return;
+
+        // Move quality options to main bar
+        container = player.find('.js-quality-display-contain');
+        player.find(".js-quality").insertAfter(container);
+
+        // Remove remaining label
+        player.find("span:contains('Video Quality:')").remove();
+
+        // Mark that we've fixed the player
+        player.attr('data-tpp', 'true');
+      });
+  }, 5000);
 }
 
 GM_addStyle(" \
