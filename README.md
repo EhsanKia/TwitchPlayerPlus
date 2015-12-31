@@ -19,6 +19,7 @@ If something in the player appears broken, disable the script temporarily and re
 - Hide quality options if there are no transcoders
 - F hotkey to toggle fullscreen
 - Easier access to stream stats
+- Display stream latency in the corner
 - Keep track of seek position in VODs
  
 ### Screenshot:
