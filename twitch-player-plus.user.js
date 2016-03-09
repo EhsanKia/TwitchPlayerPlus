@@ -3,8 +3,8 @@
 // @namespace  http://twitch.tv/ehsankia
 // @version    1.1
 // @description  Various tweaks to the Twitch HTML5 player UI
-// @match      http://www.twitch.tv/*
-// @match      http://player.twitch.tv/*
+// @match      https://www.twitch.tv/*
+// @match      https://player.twitch.tv/*
 // @grant      GM_addStyle
 // @grant      GM_getValue
 // @grant      GM_setValue
