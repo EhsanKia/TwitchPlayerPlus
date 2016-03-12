@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    1.3
+// @version    1.4
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      https://www.twitch.tv/*
 // @match      https://player.twitch.tv/*
@@ -89,6 +89,23 @@ function applyFixes() {
         setInterval(trackSeekTime, 15000);
       }, 5 * 60 * 1000);
     }
+
+    // Setup volume scrolling when in fullscreen or theatre mode
+    $("#player").bind('mousewheel DOMMouseScroll', function(event){
+      if (!backend.fullscreen && !backend.theatre && !event.shiftKey) return;
+
+      var dir = event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0
+      var delta = dir ? 0.05 : -0.05;
+
+      var flashBackend = $('div#player object')[0];
+      var volume = flashBackend.getVolume();
+      volume = Math.min(Math.max(volume + delta, 0), 1);
+      flashBackend.setVolume(volume);
+
+      event.preventDefault();
+      event.stopPropagation();
+      return false;
+    });
 
     // Mark that we've fixed the player
     html5Player.attr('data-tpp', 'true');
