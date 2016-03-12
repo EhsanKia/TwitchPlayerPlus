@@ -94,7 +94,7 @@ function applyFixes() {
     $("#player").bind('mousewheel DOMMouseScroll', function(event){
       if (!backend.fullscreen && !backend.theatre && !event.shiftKey) return;
 
-      var dir = event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0
+      var dir = event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0;
       var delta = dir ? 0.05 : -0.05;
 
       var flashBackend = $('div#player object')[0];
@@ -121,7 +121,7 @@ function checkForQualityOptions() {
 }
 
 function updateLatency() {
-  var stats = backend.getStats()
+  var stats = backend.getStats();
   var lat = stats.hlsLatencyBroadcaster;
   if (lat === undefined || lat.length === 0) {
     setTimeout(updateLatency, 5000);
