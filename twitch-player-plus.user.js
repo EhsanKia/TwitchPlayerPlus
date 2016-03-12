@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    1.2
+// @version    1.3
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      https://www.twitch.tv/*
 // @match      https://player.twitch.tv/*
@@ -12,6 +12,7 @@
 // @copyright  2015+, Ehsan Kia
 // ==/UserScript==
 
+var backend;
 var html5Player;
 var waitForPlayerReadyTimer = setInterval(function() {
     html5Player = $('div.player');
@@ -19,7 +20,7 @@ var waitForPlayerReadyTimer = setInterval(function() {
       if (html5Player.attr('data-loading') === 'false') {
         html5Player.attr('data-tpp', 'true');
         clearInterval(waitForPlayerReadyTimer);
-        window.eval("var flashBackend = $('div.player-video object')[0];");
+        backend = requirejs('web-client/components/twitch-player2').getPlayer();
         setTimeout(applyFixes, 100);
         hostPlayerCheck();
       }
@@ -58,7 +59,6 @@ function applyFixes() {
     // Add latency status under Live icon
     var liveIcon = $('.player-livestatus__online');
     liveIcon.append("<div class='lag-status'></div>");
-    window.eval('flashBackend.startPlaybackStatistics();');
     setTimeout(updateLatency, 5000);
 
     // Remove old stats button and add new one
@@ -83,8 +83,7 @@ function applyFixes() {
       //seek to previous position and keep track of the position
       var oldTime = GM_getValue("seek_" + vodID);
       if (oldTime !== undefined) {
-        oldTime = parseFloat(oldTime);
-        window.eval('flashBackend.videoSeek(' + oldTime + ');');
+        backend.setCurrentTime(parseFloat(oldTime));
       }
       setTimeout(function() {
         setInterval(trackSeekTime, 15000);
@@ -105,10 +104,9 @@ function checkForQualityOptions() {
 }
 
 function updateLatency() {
-  var lat = $('.js-stat-hls-latency-broadcaster').text();
-  if (lat === "" || lat === "NaN") {
-    window.eval('flashBackend.stopPlaybackStatistics();');
-    window.eval('flashBackend.startPlaybackStatistics();');
+  var stats = backend.getStats()
+  var lat = stats.hlsLatencyBroadcaster;
+  if (lat === undefined || lat.length === 0) {
     setTimeout(updateLatency, 5000);
   } else {
     $('.lag-status').text(lat + ' sec.');
@@ -117,8 +115,7 @@ function updateLatency() {
 }
 
 function trackSeekTime() {
-  var vodID = html5Player.attr('data-video');
-  var seekTime = window.eval('flashBackend.getVideoTime();');
+  var seekTime = backend.getCurrentTime();
   if (seekTime < 5 * 60) return;
   GM_setValue("seek_" + vodID, seekTime);
 }
