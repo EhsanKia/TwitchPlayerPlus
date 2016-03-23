@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    1.4
+// @version    1.5
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      https://www.twitch.tv/*
 // @match      https://player.twitch.tv/*
@@ -20,7 +20,8 @@ var waitForPlayerReadyTimer = setInterval(function() {
       if (html5Player.attr('data-loading') === 'false') {
         html5Player.attr('data-tpp', 'true');
         clearInterval(waitForPlayerReadyTimer);
-        backend = requirejs('web-client/components/twitch-player2').getPlayer();
+        registry = App.__container__.lookup('-view-registry:main');
+        backend = registry[$('#player>div').attr('id')].get('player');
         setTimeout(applyFixes, 100);
         hostPlayerCheck();
       }
