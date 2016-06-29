@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    1.6
+// @version    1.7
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      https://www.twitch.tv/*
 // @match      https://player.twitch.tv/*
@@ -98,10 +98,9 @@ function applyFixes() {
       var dir = event.originalEvent.wheelDelta > 0 || event.originalEvent.detail < 0;
       var delta = dir ? 0.05 : -0.05;
 
-      var flashBackend = $('div#player object')[0];
-      var volume = flashBackend.getVolume();
+      var volume = backend.getVolume();
       volume = Math.min(Math.max(volume + delta, 0), 1);
-      flashBackend.setVolume(volume);
+      backend.setVolume(volume);
 
       event.preventDefault();
       event.stopPropagation();
