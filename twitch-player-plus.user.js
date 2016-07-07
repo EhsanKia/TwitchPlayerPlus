@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    1.7
+// @version    1.8
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      https://www.twitch.tv/*
 // @match      https://player.twitch.tv/*
@@ -58,7 +58,7 @@ function applyFixes() {
     });
 
     // Add latency status under Live icon
-    var liveIcon = $('.player-livestatus__online');
+    var liveIcon = $('.player-livestatus');
     liveIcon.append("<div class='lag-status'></div>");
     setTimeout(updateLatency, 5000);
 
@@ -121,12 +121,12 @@ function checkForQualityOptions() {
 }
 
 function updateLatency() {
-  var stats = backend.getStats();
-  var lat = stats.hlsLatencyBroadcaster;
+  var stats = backend.getVideoInfo();
+  var lat = stats.hls_latency_broadcaster;
   if (lat === undefined || lat.length === 0) {
     setTimeout(updateLatency, 5000);
   } else {
-    $('.lag-status').text(lat + ' sec.');
+    $('.lag-status').text((lat / 1000) + ' sec.');
     setTimeout(updateLatency, 1000);
   }
 }
@@ -185,7 +185,6 @@ select.js-quality > option { \
 } \
 .lag-status { \
   width: 60px; \
-  margin-left: -20px; \
   text-align: center; \
 } \
 .js-custom-stats-toggle:hover > svg { \
