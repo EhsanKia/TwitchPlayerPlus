@@ -77,6 +77,25 @@ function applyFixes() {
       $('.js-playback-stats').attr('data-state', state);
     });
 
+    // Playback speed
+    if (html5Player.data('contentStream') === "vod" && $('video').length > 0) {
+      $('.player-main-menu').append('<div class="player-menu__section player-video-issue js-video-issue" data-complete="false">' +
+      ' <p class="player-menu__header">Playback Speed</p>' +
+      ' <div class="player-menu__item player-playback-rate">' +
+      '   <select class="player-menu__select" tabindex="4">' +
+      '   <option class="js-select-label">0.25</option>' +
+      '   <option class="js-select-label">0.5</option>' +
+      '   <option class="js-select-label">0.75</option>' +
+      '   <option value="1" selected="selected" class="js-select-label">Normal</option>' +
+      '   <option class="js-select-label">1.25</option>' +
+      '   <option class="js-select-label">1.5</option>' +
+      '   <option class="js-select-label">2</option>' +
+      ' </select></div>' +
+      '</div>');
+
+      $('.player-playback-rate select').change(function(data) {
+        $('video')[0].playbackRate = parseFloat(this.value, 10);
+      });
     }
 
     // Setup volume scrolling when in fullscreen or theatre mode
