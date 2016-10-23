@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    1.8
+// @version    1.9
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      https://www.twitch.tv/*
 // @match      https://player.twitch.tv/*
