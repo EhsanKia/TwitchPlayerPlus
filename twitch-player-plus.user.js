@@ -77,18 +77,6 @@ function applyFixes() {
       $('.js-playback-stats').attr('data-state', state);
     });
 
-    // Check if it's a VOD and there isn't a seek argument in the url
-    var vodID = html5Player.attr('data-video');
-    var hasSeekParam = document.location.search.search("t=") >= 0;
-    if (vodID !== undefined && !hasSeekParam) {
-      //seek to previous position and keep track of the position
-      var oldTime = GM_getValue("seek_" + vodID);
-      if (oldTime !== undefined) {
-        backend.setCurrentTime(parseFloat(oldTime));
-      }
-      setTimeout(function() {
-        setInterval(trackSeekTime, 15000);
-      }, 5 * 60 * 1000);
     }
 
     // Setup volume scrolling when in fullscreen or theatre mode
