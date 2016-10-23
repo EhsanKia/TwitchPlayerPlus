@@ -64,13 +64,13 @@ function applyFixes() {
 
     // Remove old stats button and add new one
     $('.player-menu__item--stats').css('display', 'none');
-    $('.js-control-fullscreen').before(" \
-      <button type='button' class='player-button js-custom-stats-toggle'> \
-        <span class='player-tip' data-tip='Video Stats'></span> \
-        <svg id='icon-stats' viewBox='0 0 1024 1024' style='width: 16px; fill: white; margin: 1px 6px;'> \
-          <path d='M960 0h-896c-35.328 0-64 28.672-64 64v640c0 35.328 28.672 64 64 64h256l-128 256h32l230.4-256h115.2l230.4 256h32l-128-256h256c35.328 0 64-28.672 64-64v-640c0-35.328-28.672-64-64-64zM960 672c0 17.696-14.304 32-32 32h-832c-17.696 0-32-14.304-32-32v-576c0-17.696 14.304-32 32-32h832c17.696 0 32 14.304 32 32v576zM668.096 500.192l-144.672-372.128-158.016 297.28-88.192-90.72-149.216 92.992 42.112 24.256 95.616-59.584 115.36 118.784 133.6-251.296 147.712 380.128 125.984-265.216 51.328 109.248 56.288-9.44-107.328-228.224-120.576 253.92z'></path> \
-        </svg> \
-      </button>");
+    $('.js-control-fullscreen').before(
+      "<button type='button' class='player-button js-custom-stats-toggle'>" +
+        "<span class='player-tip' data-tip='Video Stats'></span>" +
+        "<svg id='icon-stats' viewBox='0 0 1024 1024' style='width: 16px; fill: white; margin: 1px 6px;'>" +
+          "<path d='M960 0h-896c-35.328 0-64 28.672-64 64v640c0 35.328 28.672 64 64 64h256l-128 256h32l230.4-256h115.2l230.4 256h32l-128-256h256c35.328 0 64-28.672 64-64v-640c0-35.328-28.672-64-64-64zM960 672c0 17.696-14.304 32-32 32h-832c-17.696 0-32-14.304-32-32v-576c0-17.696 14.304-32 32-32h832c17.696 0 32 14.304 32 32v576zM668.096 500.192l-144.672-372.128-158.016 297.28-88.192-90.72-149.216 92.992 42.112 24.256 95.616-59.584 115.36 118.784 133.6-251.296 147.712 380.128 125.984-265.216 51.328 109.248 56.288-9.44-107.328-228.224-120.576 253.92z'></path>" +
+        "</svg>" +
+      "</button>");
     $('.js-custom-stats-toggle').click(function(){
       var prev = $('.js-playback-stats').attr('data-state');
       var state = prev === 'on' ? 'off' : 'on';
@@ -157,36 +157,36 @@ function hostPlayerCheck() {
   }, 5000);
 }
 
-GM_addStyle(" \
-.js-volume-container { width: 13em; } \
-select.js-quality:hover { color: #a991d4 !important; } \
-select.js-quality, select.js-quality:focus { \
-  float: left; \
-  height: 29px; \
-  margin: 0 6px 0 4px; \
-  padding: 0; \
-  color: white; \
-  font-weight: bold; \
-  background: none; \
-  border: none; \
-  box-shadow: 0 0 black; \
-  appearance: none; \
-  -moz-appearance: none; \
-  -webkit-appearance: none; \
-  outline: none; \
-  cursor: pointer; \
-} \
-select.js-quality > option { \
-  color: white; \
-  background: black; \
-  padding: 0 5px; \
-  margin-right: -15px; \
-  font-weight: bold; \
-} \
-.lag-status { \
-  width: 60px; \
-  text-align: center; \
-} \
-.js-custom-stats-toggle:hover > svg { \
-  fill: #a991d4 !important; \
-}");
+GM_addStyle(
+".js-volume-container { width: 13em; }" +
+"select.js-quality:hover { color: #a991d4 !important; }" +
+"select.js-quality, select.js-quality:focus {" +
+"  float: left;" +
+"  height: 29px;" +
+"  margin: 0 6px 0 4px;" +
+"  padding: 0;" +
+"  color: white;" +
+"  font-weight: bold;" +
+"  background: none;" +
+"  border: none;" +
+"  box-shadow: 0 0 black;" +
+"  appearance: none;" +
+"  -moz-appearance: none;" +
+"  -webkit-appearance: none;" +
+"  outline: none;" +
+"  cursor: pointer;" +
+"}" +
+"select.js-quality > option {" +
+"  color: white;" +
+"  background: black;" +
+"  padding: 0 5px;" +
+"  margin-right: -15px;" +
+"  font-weight: bold;" +
+"}" +
+".lag-status {" +
+"  width: 60px;" +
+"  text-align: center;" +
+"}" +
+".js-custom-stats-toggle:hover > svg {" +
+"  fill: #a991d4 !important;" +
+"}");
