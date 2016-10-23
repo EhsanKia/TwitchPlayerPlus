@@ -20,8 +20,8 @@ If something in the player appears broken, disable the script temporarily and re
 - F hotkey to toggle fullscreen
 - Easier access to stream stats
 - Display stream latency in the corner
-- Keep track of seek position in VODs
 - Scroll to adjust volume in theatre/fullscreen mode (or while holding shift)
+- Allow you to set playback speed on VODs
 
 ### Screenshot:
 ![](http://i.imgur.com/RB1d2mE.png)
