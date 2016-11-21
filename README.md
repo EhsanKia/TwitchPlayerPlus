@@ -22,6 +22,7 @@ If something in the player appears broken, disable the script temporarily and re
 - Display stream latency in the corner
 - Scroll to adjust volume in theatre/fullscreen mode (or while holding shift)
 - Allow you to set playback speed on VODs
+- Hide player alerts for muted sections
 
 ### Screenshot:
 ![](http://i.imgur.com/RB1d2mE.png)
