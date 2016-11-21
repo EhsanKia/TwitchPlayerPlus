@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    1.10
+// @version    1.11
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      https://www.twitch.tv/*
 // @match      https://player.twitch.tv/*
@@ -168,6 +168,7 @@ GM_addStyle(
 ".js-volume-container { width: 13em; }" +
 "select.js-quality:hover { color: #a991d4 !important; }" +
 ".player-menu__section:first-child { display: none; }" +
+".player-alert { display: none; }" +
 "select.js-quality, select.js-quality:focus {" +
 "  float: left;" +
 "  height: 29px;" +
