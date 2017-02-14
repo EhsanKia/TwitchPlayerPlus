@@ -28,4 +28,4 @@ If something in the player appears broken, disable the script temporarily and re
 ![](http://i.imgur.com/RB1d2mE.png)
 
 ### Upcoming:
-(nothing to see here, feel free to send feature suggestions)
+Speed up stream slightly to catch up when stream delay is too high.
