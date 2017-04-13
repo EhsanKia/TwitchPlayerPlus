@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Twitch Player Plus
 // @namespace  http://twitch.tv/ehsankia
-// @version    1.12
+// @version    1.13
 // @description  Various tweaks to the Twitch HTML5 player UI
 // @match      https://www.twitch.tv/*
 // @match      https://player.twitch.tv/*
@@ -57,7 +57,7 @@ function applyFixes() {
   });
 
   // Add latency status under Live icon
-  var liveIcon = $('.player-livestatus');
+  var liveIcon = $('.player-streamstatus');
   liveIcon.append("<div class='lag-status'></div>");
   setTimeout(updateLatency, 5000);
 
@@ -70,8 +70,6 @@ function applyFixes() {
         "<path d='M960 0h-896c-35.328 0-64 28.672-64 64v640c0 35.328 28.672 64 64 64h256l-128 256h32l230.4-256h115.2l230.4 256h32l-128-256h256c35.328 0 64-28.672 64-64v-640c0-35.328-28.672-64-64-64zM960 672c0 17.696-14.304 32-32 32h-832c-17.696 0-32-14.304-32-32v-576c0-17.696 14.304-32 32-32h832c17.696 0 32 14.304 32 32v576zM668.096 500.192l-144.672-372.128-158.016 297.28-88.192-90.72-149.216 92.992 42.112 24.256 95.616-59.584 115.36 118.784 133.6-251.296 147.712 380.128 125.984-265.216 51.328 109.248 56.288-9.44-107.328-228.224-120.576 253.92z'></path>" +
       "</svg>" +
     "</button>");
-  console.log('tset1');
-  console.log($('.js-custom-stats-toggle'));
   $('.js-custom-stats-toggle').click(function(){
     $('.player-menu__item--stats > a')[0].click();
   });
@@ -165,7 +163,7 @@ function hostPlayerCheck() {
 }
 
 GM_addStyle(
-".js-volume-container { width: 13em; }" +
+".player-volume__slider-container { opacity: 1 !important; }" +
 "select.js-quality:hover { color: #a991d4 !important; }" +
 ".player-menu__section.js-video-issue { display: none; }" +
 ".player-alert { display: none; }" +
@@ -174,11 +172,11 @@ GM_addStyle(
 "  height: 29px;" +
 "  margin: 0 6px 0 4px;" +
 "  padding: 0;" +
-"  color: white;" +
+"  color: white !important;" +
 "  font-weight: bold;" +
-"  background: none;" +
+"  background: none !important;" +
 "  border: none;" +
-"  box-shadow: 0 0 black;" +
+"  box-shadow: 0 0 black !important;" +
 "  appearance: none;" +
 "  -moz-appearance: none;" +
 "  -webkit-appearance: none;" +
@@ -193,8 +191,8 @@ GM_addStyle(
 "  font-weight: bold;" +
 "}" +
 ".lag-status {" +
-"  width: 60px;" +
-"  text-align: center;" +
+"  width: 70px;" +
+"  margin-left: -15px;" +
 "}" +
 ".js-custom-stats-toggle:hover > svg {" +
 "  fill: #a991d4 !important;" +
